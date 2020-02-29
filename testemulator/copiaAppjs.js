@@ -1,8 +1,8 @@
 import React , { useState } from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import { SvgXml } from 'react-native-svg';
-import Image from 'react-native-remote-svg'
+//import Image from 'react-native-remote-svg'
 
 
 import { MaterialIcons }     from '@expo/vector-icons'
@@ -15,7 +15,6 @@ import api from './services/api'
 export default function App() {
 
   const[gitAddr, setGitAddr]=useState('')
-  const[responseAPI, setResponseAPI]=useState(false)
   const showGitAddr = () => {
     console.log(gitAddr)
 
@@ -33,11 +32,51 @@ export default function App() {
     })
     console.log('CHAMADAQR ', gitAddr)
 
-    console.log(response.data)
-    setResponseAPI(response.data)
+    console.log(response)
+    //console.log(response.data.devs)
+    //setDevs(response.data.devs)
   }
 
 //
+
+const xml = 
+`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 27">
+<path d="M1 1h7v7h-7zM9 1h2v1h4v1h-2v2h1v3h-1v-2h-1v-1h-1v-2h-1v-1h-1zM15 1h3v2h-1v-1h-2zM19 1h7v7h-
+7zM2 2v5h5v-5zM20 2v5h5v-5zM3 3h3v3h-3zM15 3h1v1h-1zM21 3h3v3h-3zM9 4h1v1h1v1h-1
+v2h1v1h-1v1h1v1h-2v2h1v-1h1v-1h1v-1h-1v-1h1v-1h1v2h2v2h-1v-1h-1v2h1v3h-3v-1h2v-1
+h-3v1h-2v-1h-1v-1h1v-1h-2v5h-1v1h-4v-1h3v-1h1v-1h-1v-1h-1v-1h2v-2h-1v-1h1v-1h1v2
+h2v-1h-1v-1h2zM14 4h1v1h-1zM17 4h1v5h-1v-3h-2v-1h2zM11 7h1v1h-1zM15 7h1v2h-1zM1
+9h1v1h1v1h-1v1h-1zM18 9h5v2h1v1h1v1h1v1h-1v1h-1v-1h-2v-1h1v-1h-2v2h-2v1h-1v-2h2v
+-1h-4v-2h2v1h3v-1h-3zM25 9h1v1h-1zM24 10h1v1h-1zM15 12h1v1h-1zM16 13h1v2h1v1h1v1
+h1v-2h1v-1h1v1h2v1h1v1h-1v1h-2v2h4v1h-2v1h2v1h-1v2h1v1h-3v-1h-3v1h-1v-1h-1v-1h-1
+v-1h1v-1h-1v-6h-1v-1h-1v-1h1zM1 14h1v1h-1zM7 15h1v1h-1zM8 16h3v3h-1v1h-1v-2h-3v-
+1h2zM15 16h1v1h-1zM22 16v1h1v-1zM12 18h1v1h1v1h-1v1h-1v1h-1v1h-1v-1h-1v-1h2v-1h1
+zM14 18h2v2h-1v-1h-1zM18 18v3h3v-3zM1 19h7v7h-7zM19 19h1v1h-1zM2 20v5h5v-5zM3 21
+h3v3h-3zM13 21h1v1h-1zM12 22h1v2h1v2h-3v-1h1v-1h-1v-1h1zM14 22h3v1h-1v2h-1v-1h-1
+zM21 22v1h-1v1h2v-1h1v1h1v-1h-1v-1zM10 24h1v1h-1zM9 25h1v1h-1zM16 25h1v1h-1z" />
+</svg>`
+
+const novaxml = `<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 27 27\
+"><path d=\"M1 1h7v7h-7zM9 1h2v1h4v1h-2v2h1v3h-1v-2h-1v-1h-1v-2h-1v-1h-1zM15 1h3
+v2h-1v-1h-2zM19 1h7v7h-7zM2 2v5h5v-5zM20 2v5h5v-5zM3 3h3v3h-3zM15 3h1v1h-1zM21 3
+h3v3h-3zM9 4h1v1h1v1h-1v2h1v1h-1v1h1v1h-2v2h1v-1h1v-1h1v-1h-1v-1h1v-1h1v2h2v2h-1
+v-1h-1v2h1v3h-3v-1h2v-1h-3v1h-2v-1h-1v-1h1v-1h-2v5h-1v1h-4v-1h3v-1h1v-1h-1v-1h-1
+v-1h2v-2h-1v-1h1v-1h1v2h2v-1h-1v-1h2zM14 4h1v1h-1zM17 4h1v5h-1v-3h-2v-1h2zM11 7h
+1v1h-1zM15 7h1v2h-1zM1 9h1v1h1v1h-1v1h-1zM18 9h5v2h1v1h1v1h1v1h-1v1h-1v-1h-2v-1h
+1v-1h-2v2h-2v1h-1v-2h2v-1h-4v-2h2v1h3v-1h-3zM25 9h1v1h-1zM24 10h1v1h-1zM15 12h1v
+1h-1zM16 13h1v2h1v1h1v1h1v-2h1v-1h1v1h2v1h1v1h-1v1h-2v2h4v1h-2v1h2v1h-1v2h1v1h-3
+v-1h-3v1h-1v-1h-1v-1h-1v-1h1v-1h-1v-6h-1v-1h-1v-1h1zM1 14h1v1h-1zM7 15h1v1h-1zM8
+ 16h3v3h-1v1h-1v-2h-3v-1h2zM15 16h1v1h-1zM22 16v1h1v-1zM12 18h1v1h1v1h-1v1h-1v1h
+-1v1h-1v-1h-1v-1h2v-1h1zM14 18h2v2h-1v-1h-1zM18 18v3h3v-3zM1 19h7v7h-7zM19 19h1v
+1h-1zM2 20v5h5v-5zM3 21h3v3h-3zM13 21h1v1h-1zM12 22h1v2h1v2h-3v-1h1v-1h-1v-1h1zM
+14 22h3v1h-1v2h-1v-1h-1zM21 22v1h-1v1h2v-1h1v1h1v-1h-1v-1zM10 24h1v1h-1zM9 25h1v
+1h-1zM16 25h1v1h-1z\"/></svg>`
+
+//https://www.rapidtables.com/web/tools/svg-viewer-editor.html
+//
+
+
+
 
   return (
     <>
@@ -75,14 +114,10 @@ export default function App() {
         <Text  style={styles.text1}>Bora começar do zero ?</Text>
         <TextInput placeholder="digite seu nome" style={styles.text1} /> 
 
-        {
-          // AQUI TAMBEM
-          responseAPI &&
-          <Image
-          style={{ width: 100, height: 100 }}
-          source={{ uri: "data:image/svg+xml;utf8," + responseAPI }}
-          />
-        }
+        <Image
+          style={{width: 150, height: 150}}
+          source={require('./assets/qr.png')}
+        />        
 
 
       </View>
